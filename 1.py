@@ -4,6 +4,12 @@ from selenium import webdriver
 from time import sleep
 import pyautogui
 import time
+from openpyxl import load_workbook
+
+url = "https://rozetka.com.ua/notebooks/c80004/"
+fn = "Data.xlsx"
+wb = load_workbook(fn)
+ws = wb["Sheet"]
 
 url = "https://rozetka.com.ua/notebooks/c80004/"
 
@@ -59,6 +65,8 @@ for urls in list_urls:
     name = soup_page.find("h1", class_="product__title").text
 
     if skidka > 1.20:
-        print(skidka, name, urls, "\n")
+        ws.append([name, skidka, urls])
+        wb.save(fn)
+        wb.close()
 
 
